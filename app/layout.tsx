@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     description: "Toda la información que necesitas en español: profesionales, eventos, servicios, oportunidades laborales, trámites y visas.",
     images: [
       {
-        url: "https://latinos-in-berlin.vercel.app/favicon.png", // Usamos el favicon como imagen
+        url: "https://latinos-in-berlin.vercel.app/favicon.ico", // Usamos el favicon como imagen
         width: 1200,
         height: 630,
         alt: "Latinos en Berlín",
@@ -38,12 +38,12 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Latinos en Berlín | Comunidad Latina en Berlín",
     description: "Toda la información que necesitas en español: profesionales, eventos, servicios, oportunidades laborales, trámites y visas.",
-    images: ["/favicon.png"],
+    images: ["/favicon.ico"],
   },
   icons: {
-    icon: "https://latinos-in-berlin.vercel.app/favicon.png",
-    shortcut: "https://latinos-in-berlin.vercel.app/favicon.png",
-    apple: "https://latinos-in-berlin.vercel.app/favicon.png",
+    icon: "https://latinos-in-berlin.vercel.app/favicon.ico",
+    shortcut: "https://latinos-in-berlin.vercel.app/favicon.ico",
+    apple: "https://latinos-in-berlin.vercel.app/favicon.ico",
   },
   manifest: "/site.webmanifest",
   robots: {
