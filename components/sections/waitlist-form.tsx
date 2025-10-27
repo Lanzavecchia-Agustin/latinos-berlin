@@ -9,13 +9,31 @@ import { Card } from "@/components/ui/card"
 import { CheckCircle2 } from "lucide-react"
 
 export function WaitlistForm() {
-  const [email, setEmail] = useState("")
   const [submitted, setSubmitted] = useState(false)
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    // TODO: Implement waitlist submission
-    setSubmitted(true)
+    
+    const form = e.currentTarget
+    const formData = new FormData(form)
+
+    try {
+      const response = await fetch('https://formspree.io/f/meopelyy', {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
+        }
+      })
+
+      if (response.ok) {
+        setSubmitted(true)
+        form.reset()
+      }
+    } catch (error) {
+      console.error('Error:', error)
+      alert('Hubo un error. Por favor intenta de nuevo.')
+    }
   }
 
   return (
@@ -34,9 +52,8 @@ export function WaitlistForm() {
               <form onSubmit={handleSubmit} className="mx-auto flex max-w-md flex-col gap-4 sm:flex-row">
                 <Input
                   type="email"
+                  name="email"
                   placeholder="tu@email.com"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
                   required
                   className="flex-1 py-5"
                 />
@@ -45,16 +62,18 @@ export function WaitlistForm() {
                 </Button>
               </form>
 
-              <p className="mt-4 text-sm text-muted-foreground">Al darnos tu email, sabremos que hay alguien que quiere o necesita esto!</p>
+              <p className="mt-4 text-sm text-muted-foreground">
+                Al darnos tu email, sabremos que hay alguien que quiere o necesita esto!
+              </p>
             </div>
           ) : (
             <div className="text-center">
-              <div className="mb-4 inline-flex h-16 w-16 items-center justify-center rounded-full bg-accent/10">
+              <div className="mb-4 inline-flex h-16 w-16 items-center justify-center rounded-full bg-primary">
                 <CheckCircle2 className="h-8 w-8 text-accent" />
               </div>
-              <h3 className="mb-2 text-2xl font-bold text-card-foreground">¡Gracias por unirte!</h3>
+              <h3 className="mb-2 text-2xl font-bold text-card-foreground">¡Gracias!</h3>
               <p className="text-pretty leading-relaxed text-muted-foreground">
-                Te avisaremos cuando la plataforma esté lista. Mientras tanto, síguenos en redes sociales.
+                Te avisaremos cuando la plataforma esté lista.
               </p>
             </div>
           )}
