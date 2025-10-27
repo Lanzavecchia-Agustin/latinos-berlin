@@ -21,13 +21,13 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "es_ES",
-    url: "https://latinosenberlin.com", // Cambia por tu dominio real
+    url: "https://latinos-in-berlin.vercel.app/", // Cambia por tu dominio real
     siteName: "Latinos en Berlín",
     title: "Latinos en Berlín | Comunidad Latina en Berlín",
     description: "Toda la información que necesitas en español: profesionales, eventos, servicios, oportunidades laborales, trámites y visas.",
     images: [
       {
-        url: "/favicon.png", // Usamos el favicon como imagen
+        url: "https://latinos-in-berlin.vercel.app/favicon.png", // Usamos el favicon como imagen
         width: 1200,
         height: 630,
         alt: "Latinos en Berlín",
@@ -41,9 +41,9 @@ export const metadata: Metadata = {
     images: ["/favicon.png"],
   },
   icons: {
-    icon: "/favicon.png",
-    shortcut: "/favicon.png",
-    apple: "/favicon.png",
+    icon: "https://latinos-in-berlin.vercel.app/favicon.png",
+    shortcut: "https://latinos-in-berlin.vercel.app/favicon.png",
+    apple: "https://latinos-in-berlin.vercel.app/favicon.png",
   },
   manifest: "/site.webmanifest",
   robots: {
