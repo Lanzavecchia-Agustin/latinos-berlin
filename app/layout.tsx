@@ -14,6 +14,9 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Latinos en Berlín | Comunidad Latina en Berlín",
+  icons: {
+  icon: "/favicon.ico",
+  },
   description: "Toda la información que necesitas en español: profesionales, eventos, servicios, oportunidades laborales, trámites y visas. Una comunidad para latinos en Berlín.",
   keywords: ["latinos en berlín", "comunidad latina berlín", "hispanos berlín", "españoles berlín", "latinoamericanos alemania", "trámites berlín español", "eventos latinos berlín"],
   authors: [{ name: "Bloom Studio" }],
@@ -39,11 +42,6 @@ export const metadata: Metadata = {
     title: "Latinos en Berlín | Comunidad Latina en Berlín",
     description: "Toda la información que necesitas en español: profesionales, eventos, servicios, oportunidades laborales, trámites y visas.",
     images: ["/favicon.ico"],
-  },
-  icons: {
-    icon: "https://latinos-in-berlin.vercel.app/favicon.ico",
-    shortcut: "https://latinos-in-berlin.vercel.app/favicon.ico",
-    apple: "https://latinos-in-berlin.vercel.app/favicon.ico",
   },
   manifest: "/site.webmanifest",
   robots: {
