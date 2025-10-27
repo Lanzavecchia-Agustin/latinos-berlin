@@ -58,7 +58,7 @@ export function WaitlistForm() {
                   className="flex-1 py-5"
                 />
                 <Button type="submit" size="lg" className="sm:w-auto">
-                  Hagamoslo
+                  Hagamoslo!
                 </Button>
               </form>
 
@@ -72,9 +72,14 @@ export function WaitlistForm() {
                 <CheckCircle2 className="h-8 w-8 text-accent" />
               </div>
               <h3 className="mb-2 text-2xl font-bold text-card-foreground">¡Gracias!</h3>
-              <p className="text-pretty leading-relaxed text-muted-foreground">
-                Te avisaremos cuando la plataforma esté lista.
+              
+              <p className="text-pretty leading-relaxed text-muted-foreground mb-4">Si quieres ayudarnos aun mas podrias responder el siguiente formulario 
               </p>
+              <a href="https://forms.gle/gg6mzKZmZxMBkK4H9" target="blank" rel="noreferrer">
+              <Button size="lg" className="sm:w-auto">
+                Responder cuestionario de interes
+              </Button>
+               </a>
             </div>
           )}
         </Card>

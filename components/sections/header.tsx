@@ -53,10 +53,11 @@ export function Header() {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-8">
-         
-            <Button onClick={() => scrollToSection("lista-espera")} size="sm" className="ml-4">
-              Únete a la lista
+           <a href="https://forms.gle/gg6mzKZmZxMBkK4H9" target="blank" rel="noreferrer">
+            <Button  size="sm" className="ml-4">
+              Quiero ayudar
             </Button>
+            </a>
           </nav>
 
           {/* Mobile Menu Button */}
@@ -74,9 +75,11 @@ export function Header() {
           <nav className="md:hidden py-4 border-t border-border bg-background/95 backdrop-blur-sm">
             <div className="flex flex-col gap-4">
               <div className="px-4 pt-2">
-                <Button onClick={() => scrollToSection("lista-espera")} className="w-full">
-                  Únete a la lista
+                 <a href="https://forms.gle/gg6mzKZmZxMBkK4H9" target="blank" rel="noreferrer">
+                <Button  className="w-full">
+                  Quiero ayudar
                 </Button>
+                </a>
               </div>
             </div>
           </nav>
