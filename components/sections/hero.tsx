@@ -15,17 +15,7 @@ export function Hero() {
 
   const handleLike = () => {
     setLiked(true)
-    
-    // Enviar evento a Google Analytics
-    if (typeof window !== 'undefined' && (window).gtag) {
-      (window).gtag('event', 'like_project', {
-        event_category: 'engagement',
-        event_label: 'Hero Like Button',
-        value: 1
-      })
-    }
-
-    // Feedback visual temporal
+   
     setTimeout(() => setLiked(false), 2000)
   }
 
