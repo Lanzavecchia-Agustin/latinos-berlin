@@ -31,7 +31,7 @@ export function Hero() {
         </div>
 
         <h1 className="mb-6 text-balance text-5xl font-bold tracking-tight text-foreground sm:text-6xl lg:text-7xl">
-          Una app o web para ayudarnos entre nosotros
+          Una plataforma para ayudarnos entre nosotros
         </h1>
 
         <p className="mx-auto mb-10 max-w-2xl text-pretty text-lg leading-relaxed text-muted-foreground sm:text-xl">

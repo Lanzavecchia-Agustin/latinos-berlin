@@ -43,7 +43,7 @@ export function Features() {
             Todo lo que necesitas en un solo lugar
           </h2>
           <p className="text-pretty text-lg leading-relaxed text-muted-foreground">
-            Deja de buscar en múltiples grupos y fuentes. Aquí encontrarás información confiable y actualizada.
+            Queremos crear una plataforma donde encontrarias información confiable y actualizada.
           </p>
         </div>
 

@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Menu, X } from "lucide-react"
+import Image from "next/image"
 
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false)
@@ -31,10 +32,6 @@ export function Header() {
     }
   }
 
-  const navLinks = [
-    { label: "cone", id: "caracteristicas" },
-  ]
-
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
@@ -46,17 +43,23 @@ export function Header() {
           {/* Logo */}
           <button
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            className="text-xl md:text-2xl font-bold text-primary hover:text-primary/90 transition-colors font-serif"
+            className="flex items-center gap-3 group"
           >
-            Latinos en Berlín
+            <Image
+              src="/logo.png"
+              alt="Latinos en Berlín"
+              width={60}
+              height={60}
+              className="transition-transform group-hover:scale-110"
+            />
           </button>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-8">
-           <a href="https://forms.gle/gg6mzKZmZxMBkK4H9" target="blank" rel="noreferrer">
-            <Button  size="sm" className="ml-4">
-              Quiero ayudar
-            </Button>
+            <a href="https://forms.gle/gg6mzKZmZxMBkK4H9" target="_blank" rel="noreferrer">
+              <Button size="sm" className="ml-4">
+                Quiero ayudar
+              </Button>
             </a>
           </nav>
 
@@ -75,10 +78,10 @@ export function Header() {
           <nav className="md:hidden py-4 border-t border-border bg-background/95 backdrop-blur-sm">
             <div className="flex flex-col gap-4">
               <div className="px-4 pt-2">
-                 <a href="https://forms.gle/gg6mzKZmZxMBkK4H9" target="blank" rel="noreferrer">
-                <Button  className="w-full">
-                  Quiero ayudar
-                </Button>
+                <a href="https://forms.gle/gg6mzKZmZxMBkK4H9" target="_blank" rel="noreferrer">
+                  <Button className="w-full">
+                    Quiero ayudar
+                  </Button>
                 </a>
               </div>
             </div>
