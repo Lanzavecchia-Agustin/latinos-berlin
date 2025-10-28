@@ -58,12 +58,12 @@ export function WaitlistForm() {
                   className="flex-1 py-5"
                 />
                 <Button type="submit" size="lg" className="sm:w-auto">
-                  Hagamoslo!
+                  ¡Hagamoslo!
                 </Button>
               </form>
 
               <p className="mt-4 text-sm text-muted-foreground">
-                Al darnos tu email, sabremos que hay alguien que quiere o necesita esto!
+                Al compartirnos tu email, sabremos que hay alguien que quiere o necesita esto!
               </p>
             </div>
           ) : (

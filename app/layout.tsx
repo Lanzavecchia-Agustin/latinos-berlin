@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Script from "next/script";
+import { Toaster } from "@/components/ui/sonner";
 
 export const metadata: Metadata = {
   title: "Latinos en Berlín | Comunidad Latina en Berlín",
@@ -73,7 +74,12 @@ export default function RootLayout({
           `}
         </Script>
       </head>
-      <body>{children}</body>
+      <body>
+        <Toaster position="top-right" richColors />
+        <main>
+        {children}
+        </main>
+        </body>
     </html>
   );
 }

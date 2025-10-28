@@ -1,4 +1,5 @@
 import { CommonProblems } from "@/components/sections/common-problems"
+import { FAQ } from "@/components/sections/faq"
 import { Features } from "@/components/sections/features"
 import { Footer } from "@/components/sections/footer"
 import { Header } from "@/components/sections/header"
@@ -27,6 +28,9 @@ export default function Home() {
         </div>
         <div id="waitlist">
           <WaitlistForm />
+        </div>
+        <div id="faq">
+          <FAQ  />
         </div>
         <Footer />
       </main>
