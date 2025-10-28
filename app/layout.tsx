@@ -1,14 +1,11 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Script from "next/script";
-
-
 
 export const metadata: Metadata = {
   title: "Latinos en Berlín | Comunidad Latina en Berlín",
   icons: {
-  icon: "/favicon.ico",
+    icon: "/favicon.ico",
   },
   description: "Toda la información que necesitas en español: profesionales, eventos, servicios, oportunidades laborales, trámites y visas. Una comunidad para latinos en Berlín.",
   keywords: ["latinos en berlín", "comunidad latina berlín", "hispanos berlín", "españoles berlín", "latinoamericanos alemania", "trámites berlín español", "eventos latinos berlín"],
@@ -17,16 +14,16 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "es_ES",
-    url: "https://latinos-in-berlin.vercel.app/", // Cambia por tu dominio real
+    url: "https://latinos-in-berlin.vercel.app/",
     siteName: "Latinos en Berlín",
     title: "Latinos en Berlín | Comunidad Latina en Berlín",
     description: "Toda la información que necesitas en español: profesionales, eventos, servicios, oportunidades laborales, trámites y visas.",
     images: [
       {
-        url: "https://latinos-in-berlin.vercel.app/favicon.ico", // Usamos el favicon como imagen
+        url: "https://latinos-in-berlin.vercel.app/logo.png",
         width: 1200,
         height: 630,
-        alt: "Latinos en Berlín",
+        alt: "Latinos en Berlín - Comunidad Latina",
       },
     ],
   },
@@ -34,7 +31,8 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Latinos en Berlín | Comunidad Latina en Berlín",
     description: "Toda la información que necesitas en español: profesionales, eventos, servicios, oportunidades laborales, trámites y visas.",
-    images: ["/favicon.ico"],
+    images: ["https://latinos-in-berlin.vercel.app/logo.png"],
+    creator: "@tuusuario", // Opcional: tu usuario de Twitter
   },
   manifest: "/site.webmanifest",
   robots: {
@@ -48,9 +46,10 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
-  verification: {
-    google: "tu-codigo-de-verificacion", // Agrega cuando tengas Google Search Console
-  },
+  // Elimina verification si no tienes el código aún
+  // verification: {
+  //   google: "tu-codigo-de-verificacion",
+  // },
 };
 
 export default function RootLayout({
@@ -60,25 +59,21 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es">
-    <head>
+      <head>
         <Script
           strategy="afterInteractive"
-          src={`https://www.googletagmanager.com/gtag/js?id=G-F91G5E6EPZ`}
+          src="https://www.googletagmanager.com/gtag/js?id=G-F91G5E6EPZ"
         />
         <Script id="ga-script" strategy="afterInteractive">
           {`
             window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-
-              gtag('config', 'G-F91G5E6EPZ');
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-F91G5E6EPZ');
           `}
         </Script>
       </head>
-      <body
-      >
-        {children}
-      </body>
+      <body>{children}</body>
     </html>
   );
 }
