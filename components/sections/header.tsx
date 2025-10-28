@@ -87,6 +87,9 @@ export function Header() {
                     Quiero ayudar
                   </Button>
                 </a>
+                <Button size="lg" variant="outline" className="w-full max-w-md sm:w-auto bg-transparent mt-4" onClick={() => scrollToSection("our-story")}>
+               Conoce más
+            </Button>
               </div>
             </div>
           </nav>
