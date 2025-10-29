@@ -1,38 +1,53 @@
-"use client"
+'use client'
 
 import type React from "react"
-
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card } from "@/components/ui/card"
 import { CheckCircle2 } from "lucide-react"
+import { toast } from "sonner"
 
 export function WaitlistForm() {
   const [submitted, setSubmitted] = useState(false)
+  const [loading, setLoading] = useState(false)
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    setLoading(true)
     
     const form = e.currentTarget
     const formData = new FormData(form)
+    const email = formData.get('email') as string
 
     try {
-      const response = await fetch('https://formspree.io/f/meopelyy', {
+      const response = await fetch('/api/email', {
         method: 'POST',
-        body: formData,
-        headers: {
-          'Accept': 'application/json'
-        }
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email })
       })
 
-      if (response.ok) {
-        setSubmitted(true)
-        form.reset()
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Error al guardar')
       }
-    } catch (error) {
+
+      form.reset()
+      setSubmitted(true)
+      toast.success('¡Email registrado con éxito! 🎉')
+      
+    } catch (error: unknown) {
       console.error('Error:', error)
-      alert('Hubo un error. Por favor intenta de nuevo.')
+      const errorMessage = error instanceof Error ? error.message : 'Hubo un error. Por favor intenta de nuevo.'
+      
+      if (errorMessage.includes('ya está registrado')) {
+        toast.error('Este email ya está registrado')
+      } else {
+        toast.error(errorMessage)
+      }
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -53,12 +68,13 @@ export function WaitlistForm() {
                 <Input
                   type="email"
                   name="email"
-                  placeholder="tu@email.com"
+                  placeholder="email@example.com"
                   required
+                  disabled={loading}
                   className="flex-1 py-5"
                 />
-                <Button type="submit" size="lg" className="sm:w-auto">
-                  ¡Hagamoslo!
+                <Button type="submit" size="lg" className="sm:w-auto" disabled={loading}>
+                  {loading ? 'Enviando...' : '¡Hagámoslo!'}
                 </Button>
               </form>
 
@@ -73,13 +89,14 @@ export function WaitlistForm() {
               </div>
               <h3 className="mb-2 text-2xl font-bold text-card-foreground">¡Gracias!</h3>
               
-              <p className="text-pretty leading-relaxed text-muted-foreground mb-4">Si quieres ayudarnos aun mas podrias responder el siguiente formulario 
+              <p className="text-pretty leading-relaxed text-muted-foreground mb-4">
+                Si quieres ayudarnos aún más podrías responder el siguiente formulario 
               </p>
-              <a href="https://forms.gle/gg6mzKZmZxMBkK4H9" target="blank" rel="noreferrer">
-              <Button size="lg" className="sm:w-auto">
-                Responder cuestionario de interes
-              </Button>
-               </a>
+              <a href="https://forms.gle/gg6mzKZmZxMBkK4H9" target="_blank" rel="noreferrer">
+                <Button size="lg" className="sm:w-auto">
+                  Responder cuestionario de interés
+                </Button>
+              </a>
             </div>
           )}
         </Card>
