@@ -1,8 +1,10 @@
-'use client'
+"use client"
 import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import type React from "react"
+
 import { Check, CheckCircle2, Globe, Users, Heart } from "lucide-react"
 import { useState, useEffect } from "react"
-import { Input } from "../ui/input"
 import { toast } from "sonner"
 
 export function Hero() {
@@ -13,54 +15,53 @@ export function Hero() {
 
   useEffect(() => {
     fetchTotalSupport()
-    const hasLiked = localStorage.getItem('hasLiked')
-    if (hasLiked === 'true') {
+    const hasLiked = localStorage.getItem("hasLiked")
+    if (hasLiked === "true") {
       setLiked(true)
     }
   }, [])
 
   const fetchTotalSupport = async () => {
     try {
-      const response = await fetch('/api/total-support')
+      const response = await fetch("/api/total-support")
       const data = await response.json()
       setTotalSupport(data.total)
     } catch (error) {
-      console.error('Error al cargar el total:', error)
+      console.error("Error al cargar el total:", error)
     }
   }
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setLoading(true)
-    
+
     const form = e.currentTarget
     const formData = new FormData(form)
-    const email = formData.get('email') as string
+    const email = formData.get("email") as string
 
     try {
-      const response = await fetch('/api/email', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email })
+      const response = await fetch("/api/email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
       })
 
       const data = await response.json()
 
       if (!response.ok) {
-        throw new Error(data.error || 'Error al guardar')
+        throw new Error(data.error || "Error al guardar")
       }
 
       form.reset()
       await fetchTotalSupport()
       setSubmitted(true)
-      toast.success('¡Email registrado con éxito! 🎉')
-      
+      toast.success("¡Email registrado con éxito! 🎉")
     } catch (error: unknown) {
-      console.error('Error:', error)
-      const errorMessage = error instanceof Error ? error.message : 'Hubo un error. Por favor intenta de nuevo.'
-      
-      if (errorMessage.includes('ya está registrado')) {
-        toast.error('Este email ya está registrado')
+      console.error("Error:", error)
+      const errorMessage = error instanceof Error ? error.message : "Hubo un error. Por favor intenta de nuevo."
+
+      if (errorMessage.includes("ya está registrado")) {
+        toast.error("Este email ya está registrado")
       } else {
         toast.error(errorMessage)
       }
@@ -71,24 +72,24 @@ export function Hero() {
 
   const handleLike = async () => {
     if (liked) return
-    
+
     setLoading(true)
     try {
-      const response = await fetch('/api/counter', {
-        method: 'POST'
+      const response = await fetch("/api/counter", {
+        method: "POST",
       })
 
       if (response.ok) {
         setLiked(true)
-        localStorage.setItem('hasLiked', 'true')
+        localStorage.setItem("hasLiked", "true")
         await fetchTotalSupport()
-        toast.success('¡Gracias por tu apoyo! ❤️')
+        toast.success("¡Gracias por tu apoyo! ❤️")
       } else {
-        throw new Error('Error al registrar tu apoyo')
+        throw new Error("Error al registrar tu apoyo")
       }
     } catch (error) {
-      console.error('Error al dar like:', error)
-      toast.error('Hubo un error. Por favor intenta de nuevo.')
+      console.error("Error al dar like:", error)
+      toast.error("Hubo un error. Por favor intenta de nuevo.")
     } finally {
       setLoading(false)
     }
@@ -97,41 +98,85 @@ export function Hero() {
   return (
     <section className="relative overflow-hidden bg-background px-6 py-24 lg:px-8 lg:pt-44">
       <div className="mx-auto max-w-4xl text-center">
-        <div className="mb-8 inline-flex items-center gap-2 rounded-full bg-accent px-4 py-2 text-sm text-primary font-bold">
-          <span className="relative flex h-2 w-2">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75"></span>
-            <span className="relative inline-flex h-2 w-2 rounded-full bg-primary"></span>
-          </span>
-          Latinos en Berlín
+        <div className="mb-8 flex flex-wrap items-center justify-center gap-3">
+          <div className="inline-flex items-center gap-2 rounded-full bg-accent px-4 py-2 text-sm text-primary font-bold">
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75"></span>
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-primary"></span>
+            </span>
+            Latinos en Berlín
+          </div>
+          {totalSupport > 0 && (
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full border border-primary/20">
+              <Users className="h-4 w-4 text-primary" />
+              <span className="text-sm font-semibold text-primary">
+                {totalSupport} {totalSupport === 1 ? "persona apoya" : "personas apoyan"} esta idea
+              </span>
+            </div>
+          )}
         </div>
+
         <h1 className="mb-6 text-balance text-5xl font-bold tracking-tight text-foreground sm:text-6xl lg:text-7xl">
           Una nueva <span className="text-primary"> red social </span>para ayudarnos entre nosotros
         </h1>
         <p className="mx-auto mb-10 max-w-2xl text-pretty text-lg leading-relaxed text-muted-foreground sm:text-xl">
-          Toda la información y el apoyo que necesitás — en español, gratis y en un solo lugar. Profesionales, eventos, servicios, oportunidades laborales, trámites y más.
+          Toda la información y el apoyo que necesitás — en español, gratis y en un solo lugar. Profesionales, eventos,
+          servicios, oportunidades laborales, trámites y más.
         </p>
 
-        <div className="flex flex-col items-center justify-center gap-6">
+        <div className="flex flex-col items-center justify-center gap-8 mb-12">
           {!submitted ? (
-            <>
-              <form onSubmit={handleSubmit} className="mx-auto flex max-w-md flex-col gap-4 sm:flex-row w-full">
+            <div className="w-full max-w-md space-y-6">
+              <form onSubmit={handleSubmit} className="flex flex-col gap-3 sm:flex-row">
                 <Input
                   type="email"
                   name="email"
                   placeholder="email@example.com"
                   required
                   disabled={loading}
-                  className="flex-1 py-5"
+                  className="flex-1 h-12"
                 />
-                <Button type="submit" size="lg" className="sm:w-auto" disabled={loading}>
-                  {loading ? 'Enviando...' : '¡Hagámoslo!'}
+                <Button type="submit" size="lg" className="sm:w-auto h-12" disabled={loading}>
+                  {loading ? "Enviando..." : "¡Hagámoslo!"}
                 </Button>
               </form>
-              
-              <div className="mx-auto max-w-2xl text-center text-sm text-muted-foreground">
-                <p>Al compartirnos tu email, sabremos que hay alguien que quiere o necesita esto!</p>
+
+              <p className="text-sm text-muted-foreground">
+                Al compartirnos tu email, sabremos que hay alguien que quiere o necesita esto
+              </p>
+
+              <div className="relative py-4">
+                <div className="absolute inset-0 flex items-center">
+                  <div className="w-full border-t border-border/40"></div>
+                </div>
+                <div className="relative flex justify-center">
+                  <span className="bg-background px-4 text-sm text-muted-foreground">o</span>
+                </div>
               </div>
-            </>
+
+              <div className="space-y-3">
+                <p className="text-sm font-medium text-muted-foreground">Simplemente dale apoyo a la idea</p>
+                <Button
+                  size="lg"
+                  variant={liked ? "default" : "outline"}
+                  className={`w-full h-12 gap-2 transition-all duration-300 ${
+                    liked
+                      ? "bg-gradient-to-r from-rose-500 to-pink-500 hover:from-rose-600 hover:to-pink-600 text-white border-0 shadow-lg"
+                      : "border-2 border-rose-200 hover:border-rose-400 hover:bg-rose-50 text-rose-600"
+                  }`}
+                  onClick={handleLike}
+                  disabled={loading || liked}
+                >
+                  <Heart
+                    className={`h-5 w-5 transition-all ${
+                      liked ? "fill-white text-white" : "fill-rose-500 text-rose-500"
+                    }`}
+                  />
+                  <span className="font-semibold">{liked ? "¡Gracias por tu apoyo!" : "Apoyar esta idea"}</span>
+                  {liked && <CheckCircle2 className="h-5 w-5" />}
+                </Button>
+              </div>
+            </div>
           ) : (
             <div className="text-center bg-secondary/50 px-8 py-8 rounded-xl max-w-lg">
               <div className="mb-4 inline-flex h-16 w-16 items-center justify-center rounded-full bg-primary">
@@ -139,7 +184,7 @@ export function Hero() {
               </div>
               <h3 className="mb-3 text-2xl font-bold text-card-foreground">¡Gracias!</h3>
               <p className="text-pretty leading-relaxed text-muted-foreground mb-6">
-                Si quieres ayudarnos aún más podrías responder el siguiente formulario 
+                Si quieres ayudarnos aún más podrías responder el siguiente formulario
               </p>
               <a href="https://forms.gle/gg6mzKZmZxMBkK4H9" target="_blank" rel="noreferrer">
                 <Button size="lg" className="w-full sm:w-auto">
@@ -148,35 +193,6 @@ export function Hero() {
               </a>
             </div>
           )}
-
-          <div className="w-full max-w-md border-t border-border/40 my-2"></div>
-
-          <div className="flex flex-col items-center gap-3 mb-12">
-            <Button 
-              size="lg" 
-              variant={liked ? "default" : "outline"}
-              className={`w-full sm:w-auto transition-all disabled:opacity-100 ${
-                liked ? 'bg-red-400 hover:bg-red-400 border-red-300' : 'bg-transparent hover:bg-red-50'
-              }`}
-              onClick={handleLike}
-              disabled={loading || liked}
-            >
-              <Heart 
-                className={`h-5 w-5 transition-all ${
-                  liked ? 'fill-white scale-110' : 'fill-none'
-                }`}
-              />
-              <span className="ml-2">
-                {liked ? `¡Gracias, ya somos ${totalSupport}!` : `Me interesa ${totalSupport > 0 ? `(${totalSupport})` : ''}`}
-              </span>
-            </Button>
-            
-            {!liked && (
-              <p className="text-xs text-muted-foreground text-center max-w-xs">
-                O simplemente dale apoyo a la idea
-              </p>
-            )}
-          </div>
         </div>
 
         <div className="flex flex-wrap items-center justify-center gap-6 text-sm">
